@@ -26,6 +26,8 @@ func main(){
 	fmt.Println("Hello, " + strings.Title(name));
 }
 ```
+Or, what about a lowercase service, so easy it's pretty much a one liner?  
+![Imgur](http://i.imgur.com/8ChuRbw.png)
 
 Also check out it's [GoDocs](https://godoc.org/github.com/LEGOlord208/stdutil)!
 
