@@ -2,7 +2,7 @@
 Minimal wrapper around some STD actions in Go... To make them quicker than ever!
 
 ## Example:
-```
+```Go
 package main;
 
 import (
