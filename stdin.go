@@ -9,33 +9,28 @@ import (
 
 var scanner *bufio.Scanner;
 
-func INit() bool{
-	if(IsINit()){
-		return false;
-	}
-	scanner = bufio.NewScanner(os.Stdin);
-	return true;
-}
-func IsINit() bool{
-	return scanner != nil;
-}
-
 func Scanln() (string, error){
-	INit();
+	if(scanner != nil){
+		scanner = bufio.NewScanner(os.Stdin);
+	}
 
 	if(scanner.Scan()){
 		return scanner.Text(), nil;
 	} else {
 		err := scanner.Err();
 		if(err == nil){
-			PrintErr("End of file from STDIN", nil);
 			return "", io.EOF;
 		} else {
-			PrintErr("Could not read from STDIN", err);
+			PrintErr("Could not read", err);
 			return "", err;
 		}
 	}
 }
+func ScanTrim() (string, error){
+	str, err := Scanln();
+	return strings.TrimSpace(str), err;
+}
+
 func MustScanln() string{
 	in, err := Scanln();
 	if(err != nil){
@@ -45,6 +40,9 @@ func MustScanln() string{
 		return in;
 	}
 }
+func MustScanTrim() string{
+	return strings.TrimSpace(MustScanln());
+}
 func MustScanLower() string{
-	return strings.ToLower(MustScanln());
+	return strings.ToLower(MustScanTrim());
 }
