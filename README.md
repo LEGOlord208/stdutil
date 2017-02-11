@@ -29,4 +29,10 @@ func main(){
 
 Also check out it's [GoDocs](https://godoc.org/github.com/LEGOlord208/stdutil)!
 
+## Install
+Should be as easy as
+```
+go get github.com/legolord208/stdutil
+```
+
 # Have fun!
