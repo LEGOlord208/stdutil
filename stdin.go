@@ -10,7 +10,7 @@ import (
 var scanner *bufio.Scanner;
 
 func Scanln() (string, error){
-	if(scanner != nil){
+	if(scanner == nil){
 		scanner = bufio.NewScanner(os.Stdin);
 	}
 
