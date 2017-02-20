@@ -6,8 +6,11 @@ import (
 	"runtime/debug"
 )
 
+// Set whether or not PrintErr should print a stack trace.
 var ShouldTrace bool;
 
+// Prints an error message.
+// Both arguments may be zero.
 func PrintErr(text string, err error){
 	if(err == nil){
 		fmt.Fprintln(os.Stderr, text);
