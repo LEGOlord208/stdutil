@@ -4,21 +4,52 @@ import (
 	"fmt"
 	"os"
 	"runtime/debug"
+	"io"
 )
 
-// Set whether or not PrintErr should print a stack trace.
-var ShouldTrace bool;
+var (
+	// Set whether or not PrintErr() should print a stack trace.
+	ShouldTrace bool;
+
+	// Sets the output PrintErr() should use.
+	// Defaults to os.Stderr
+	ErrOutput io.Writer = os.Stderr;
+
+	// A slice of functions (events) to call before PrintErr() is called.
+	// The final error message that will be printed out it sent as argument.
+	// If returned true, the function is cancelled completely.
+	EventPrePrintError []func(string) bool;
+
+	// A slice of functions (events) to call after PrintErr() is called.
+	// The final error message that will be printed out it sent as argument.
+	EventPostPrintError []func(string);
+)
 
 // Prints an error message.
-// Both arguments may be zero.
-func PrintErr(text string, err error){
+// Any argument may be zero.
+func PrintErr(msg string, err error){
+	var text string;
 	if(err == nil){
-		fmt.Fprintln(os.Stderr, text);
-	} else if(text == ""){
-		fmt.Fprintln(os.Stderr, "An error occured:", err);
+		text = msg;
+	} else if(msg == ""){
+		text = "An error occured: " + err.Error();
 	} else {
-		fmt.Fprintln(os.Stderr, text + ":", err);
+		text = msg + ": " + err.Error();
 	}
+
+	defer func(){
+		for _, event := range EventPostPrintError{
+			event(text);
+		}
+	}();
+
+	for _, event := range EventPrePrintError{
+		if(event(text)){
+			return;
+		}
+	}
+
+	fmt.Fprintln(ErrOutput, text);
 
 	if(ShouldTrace){
 		debug.PrintStack();
