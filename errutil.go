@@ -18,11 +18,13 @@ var (
 	// A slice of functions (events) to call before PrintErr() is called.
 	// The final error message that will be printed out it sent as argument.
 	// If returned true, the function is cancelled completely.
-	EventPrePrintError []func(string) bool;
+	// Parameters: full message (message + error), message, error.
+	EventPrePrintError []func(string, string, error) bool;
 
 	// A slice of functions (events) to call after PrintErr() is called.
 	// The final error message that will be printed out it sent as argument.
-	EventPostPrintError []func(string);
+	// Parameters: full message (message + error), message, error.
+	EventPostPrintError []func(string, string, error);
 )
 
 // Prints an error message.
@@ -39,12 +41,12 @@ func PrintErr(msg string, err error){
 
 	defer func(){
 		for _, event := range EventPostPrintError{
-			event(text);
+			event(text, msg, err);
 		}
 	}();
 
 	for _, event := range EventPrePrintError{
-		if(event(text)){
+		if(event(text, msg, err)){
 			return;
 		}
 	}
