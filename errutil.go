@@ -8,26 +8,26 @@ import (
 )
 
 var (
-	// Set whether or not PrintErr() should print a stack trace.
+	// ShouldTrace sets whether or not PrintErr() should print a stack trace.
 	ShouldTrace bool
 
-	// Sets the output PrintErr() should use.
+	// ErrOutput sets the output PrintErr() should use.
 	// Defaults to os.Stderr
 	ErrOutput io.Writer = os.Stderr
 
-	// A slice of functions (events) to call before PrintErr() is called.
+	// EventPrePrintError is a slice of functions (events) to call before PrintErr() is called.
 	// The final error message that will be printed out it sent as argument.
 	// If returned true, the function is cancelled completely.
 	// Parameters: full message (message + error), message, error.
 	EventPrePrintError []func(string, string, error) bool
 
-	// A slice of functions (events) to call after PrintErr() is called.
+	// EventPostPrintError is a slice of functions (events) to call after PrintErr() is called.
 	// The final error message that will be printed out it sent as argument.
 	// Parameters: full message (message + error), message, error.
 	EventPostPrintError []func(string, string, error)
 )
 
-// Prints an error message.
+// PrintErr prints an error message to STDERR.
 // Any argument may be zero.
 func PrintErr(msg string, err error) {
 	var text string

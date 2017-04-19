@@ -9,8 +9,9 @@ import (
 
 var scanner *bufio.Scanner
 
-// Scan a line.
-// Return any errors.
+// Scanln scans a line from STDIN.
+// It returns any errors, as well
+// as printing it, if it's not EOF.
 func Scanln() (string, error) {
 	if scanner == nil {
 		scanner = bufio.NewScanner(os.Stdin)
@@ -18,43 +19,42 @@ func Scanln() (string, error) {
 
 	if scanner.Scan() {
 		return scanner.Text(), nil
-	} else {
-		err := scanner.Err()
-		if err == nil {
-			return "", io.EOF
-		} else {
-			PrintErr("Could not read", err)
-			return "", err
-		}
 	}
+
+	err := scanner.Err()
+	if err == nil {
+		return "", io.EOF
+	}
+
+	PrintErr("Could not read", err)
+	return "", err
 }
 
-// Scan a line, but trim the result.
-// Return any errors.
+// ScanTrim scans a line from STDIN, but trims the result.
+// Returns any errors.
 func ScanTrim() (string, error) {
 	str, err := Scanln()
 	return strings.TrimSpace(str), err
 }
 
-// Scan a line.
+// MustScanln scans a line from STDIN.
 // If failed, exit the program.
 func MustScanln() string {
 	in, err := Scanln()
 	if err != nil {
 		os.Exit(1)
 		return ""
-	} else {
-		return in
 	}
+	return in
 }
 
-// Scan a line, but trim the result.
+// MustScanTrim scans a line from STDIN, but trims the result.
 // If failed, exit the program.
 func MustScanTrim() string {
 	return strings.TrimSpace(MustScanln())
 }
 
-// Scan a line, but trim and make the result lowercase.
+// MustScanLower scans a line from STDIN, but trims and makes the result lowercase.
 // If failed, exit the program.
 func MustScanLower() string {
 	return strings.ToLower(MustScanTrim())
