@@ -1,7 +1,6 @@
 package stdutil
 
 import (
-	"fmt"
 	"io"
 	"os"
 	"runtime/debug"
@@ -51,7 +50,7 @@ func PrintErr(msg string, err error) {
 		}
 	}
 
-	fmt.Fprintln(ErrOutput, text)
+	ErrOutput.Write([]byte(text))
 
 	if ShouldTrace {
 		debug.PrintStack()
