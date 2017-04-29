@@ -50,7 +50,7 @@ func PrintErr(msg string, err error) {
 		}
 	}
 
-	ErrOutput.Write([]byte(text))
+	ErrOutput.Write([]byte(text + "\n"))
 
 	if ShouldTrace {
 		debug.PrintStack()
