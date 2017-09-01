@@ -3,33 +3,31 @@ Minimal wrapper around some STD actions in Go... To make them quicker than ever!
 
 ## Example:
 ```Go
-package main;
+package main
 
 import (
-	"fmt"
-	"github.com/jD91mZM2/stdutil"
-	"strings"
-	"regexp"
+    "fmt"
+    "github.com/jD91mZM2/stdutil"
+    "regexp"
+    "strings"
 )
 
-func main(){
-	stdutil.ShouldTrace = true;
+func main() {
+    stdutil.ShouldTrace = true
 
-	fmt.Print("Name: ");
-	name := stdutil.MustScanLower();
+    fmt.Print("Name: ")
+    name := stdutil.MustScanLower()
 
-	if ok, _ := regexp.MatchString("[0-9]+", name); ok{
-		stdutil.PrintErr("Name can't contain numbers!!!", nil);
-		return;
-	}
+    if ok, _ := regexp.MatchString("[0-9]+", name); ok {
+        stdutil.PrintErr("Name can't contain numbers!!!", nil)
+        return
+    }
 
-	fmt.Println("Hello, " + strings.Title(name));
+    fmt.Println("Hello, " + strings.Title(name))
 }
 ```
-Or, what about a lowercase service, so easy it's pretty much a one liner?  
-![Imgur](http://i.imgur.com/8ChuRbw.png)
 
-Also check out it's [GoDocs](https://godoc.org/github.com/LEGOlord208/stdutil)!
+Also check out its [GoDocs](https://godoc.org/github.com/jD91mZM2/stdutil)!
 
 ## Install
 Should be as easy as
