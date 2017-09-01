@@ -7,7 +7,7 @@ package main;
 
 import (
 	"fmt"
-	"github.com/legolord208/stdutil"
+	"github.com/jD91mZM2/stdutil"
 	"strings"
 	"regexp"
 )
@@ -34,7 +34,7 @@ Also check out it's [GoDocs](https://godoc.org/github.com/LEGOlord208/stdutil)!
 ## Install
 Should be as easy as
 ```
-go get github.com/legolord208/stdutil
+go get github.com/jD91mZM2/stdutil
 ```
 
 # Have fun!
